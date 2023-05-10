@@ -4,12 +4,24 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import hljs from 'highlight.js';
 
+//全局注册基于Vue的markdown编辑器mavon-editor
+import marked from 'marked'
+
+//全局注册基于Vue的markdown编辑器mavon-editor
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+//使用mavon-editor
+Vue.use(mavonEditor)
+Vue.use(marked)
 var axios = require('axios')
 axios.defaults.baseURL = 'http://localhost:8443/api'
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
+
+Vue.use(hljs);
 Vue.use(ElementUI)
 // 这个的逻辑很简单，首先判断访问的路径是否需要登录，
 // 如果需要，判断 store 里有没有存储 user 的信息，如果存在，则放行，

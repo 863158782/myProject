@@ -1,11 +1,14 @@
 package com.oligizzz.mixueadmin.pojo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  *
  * @TableName category
  */
+@Data
 public class Category implements Serializable {
     /**
      * 分类主键

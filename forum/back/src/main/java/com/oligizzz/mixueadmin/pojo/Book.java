@@ -1,5 +1,7 @@
 package com.oligizzz.mixueadmin.pojo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**

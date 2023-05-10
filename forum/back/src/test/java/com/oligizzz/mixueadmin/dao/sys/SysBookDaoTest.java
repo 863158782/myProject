@@ -1,4 +1,4 @@
-package com.oligizzz.mixueadmin.dao.sys;
+package com.oligizzz.mixueadmin.dao;
 
 import com.oligizzz.mixueadmin.pojo.Book;
 import com.oligizzz.mixueadmin.pojo.Category;

@@ -6,12 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * @Author: GNMD
- * @Description:
- * @Date: 2021/6/26
- * @Modify By:
- */
+
 public class MyWebMvcConfiguration implements WebMvcConfigurer {
 
 //    @Bean

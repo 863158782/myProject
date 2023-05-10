@@ -1,4 +1,4 @@
-package com.oligizzz.mixueadmin.dao.sys;
+package com.oligizzz.mixueadmin.dao;
 
 import com.oligizzz.mixueadmin.pojo.User;
 import org.junit.jupiter.api.Test;
@@ -9,12 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @Author: GNMD
- * @Description:
- * @Date: 2021/6/26
- * @Modify By:
- */
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 class SysUserDaoTest {

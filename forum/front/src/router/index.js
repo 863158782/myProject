@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import AppIndex from '../components/home/AppIndex'
 import Login from '../components/Login'
 import Home from '../components/Home'
-import LibraryIndex from '../components/library/LibraryIndex'
+import posts from '../components/forum/Posts'
 
 Vue.use(Router)
 
@@ -34,9 +34,9 @@ export default new Router({
           }
         },
         {
-          path: '/library',
-          name: 'Library',
-          component: LibraryIndex,
+          path: '/posts',
+          name: 'posts',
+          component: posts,
           meta: {
             requireAuth: true
           }

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span style="font-weight: bold;font-size: 20px">最近更新</span>
@@ -54,4 +54,4 @@ export default {
     height: 1050px;
     text-align: left;
   }
-</style>
+</style> -->

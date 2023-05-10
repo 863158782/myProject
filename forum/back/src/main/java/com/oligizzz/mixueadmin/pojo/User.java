@@ -1,10 +1,8 @@
 package com.oligizzz.mixueadmin.pojo;
 
 /**
- * @Author: GNMD
- * @Description:
- * @Date: 2021/6/26
- * @Modify By:
+ *
+ * @TableName User
  */
 public class User {
 
