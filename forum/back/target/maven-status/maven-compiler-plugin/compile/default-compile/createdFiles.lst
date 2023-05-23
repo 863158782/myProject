@@ -1,0 +1,7 @@
+com\hblg\forum\Controller\UseraController.class
+com\hblg\forum\ForumApplication.class
+com\hblg\forum\Entity\User.class
+com\hblg\forum\Mapper\UserMapper.class
+com\hblg\forum\Service\impl\UserServiceImpl.class
+com\hblg\forum\Service\USerService.class
+com\hblg\forum\until\Result.class
