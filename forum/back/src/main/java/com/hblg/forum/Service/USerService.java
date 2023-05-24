@@ -8,4 +8,6 @@ import java.util.*;
 public interface USerService {
 
     public boolean Login(String username,String password);
+
+    public User findUserByID(long id);
 }

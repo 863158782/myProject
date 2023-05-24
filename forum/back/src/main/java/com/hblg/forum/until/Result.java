@@ -10,7 +10,7 @@ public class Result {
         this.code=code;
     }
     public Result(Object data){
-        this.code=0;
+        this.code=200;
         this.data=data;
     }
 

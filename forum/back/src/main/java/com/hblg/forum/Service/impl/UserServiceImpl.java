@@ -22,4 +22,10 @@ public class UserServiceImpl implements USerService {
         queryWrapper.lambda().eq(User::getPassword,password);
         return userMapper.selectList(queryWrapper)==null?false:true;
     }
+
+    @Override
+    public User findUserByID(long id) {
+
+        return userMapper.selectById(id);
+    }
 }

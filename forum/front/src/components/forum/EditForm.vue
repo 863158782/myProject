@@ -76,7 +76,8 @@ export default {
         description: '',
         cover: '',
         context: '',
-        pid:""
+        pid:"",
+        visited:0
       },
       formLabelWidth: '120px',
       toolbars: {
@@ -186,9 +187,10 @@ export default {
     var formdata = new FormData();
     formdata.append('file' , $file);
      this.$axios
-    .post("http://localhost:8443/api/image/upload/", formdata)
+    .post("http://localhost:8443/api/tengxun", formdata)
     .then(res => {
-      var url = res.data.data;
+      if(res.data.code===200)
+        var url = res.data.data;
        this.$refs.md.$img2Url(pos, url);  //这里就是引用ref = md 然后调用$img2Url方法即可替换地址
     });
   },

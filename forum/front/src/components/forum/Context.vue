@@ -11,18 +11,25 @@
           <span>{{item.date}}</span> /
           <span>{{item.press}}</span>
         </p> -->
-        <el-card style="width: 255px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
+        <el-card style="width: 255px;margin-bottom: 20px;height: 240px;float: left;margin-right: 15px" class="book"
                  bodyStyle="padding:10px" shadow="hover">
-          <div class="cover" @click="editBook(item)">
-            <img :src="item.cover" alt="封面">
+          <div class="cover" @click="findPost(item)">
+            <router-link style="position: absolute;z-index: 12" :to='{path:"/searchPost",query:{id:item.id,title:item.title,context:item.context,date:item.date,author:item.author,visited:item.visited,username:item.username}}'>
+              <img :src="item.cover" alt="封面">
+            </router-link>
+              
+           
           </div>
-          <div class="info">
+          <div class="info" style="position: relative;">
             <div class="title">
-              <a href="">{{item.title}}</a>
+              <a style="font-size: 20px;color: black;" href="">{{item.title}}</a>
             </div>
-            <i class="el-icon-delete" @click="deleteBook(item.id)"></i>
+            <span class="el-tag el-tag--success el-tag--mini el-tag--light" style="position: absolute;right: 5px;top: -180px;z-index: 20;">阅读量：{{ item.visited }}</span>
+            <i style="width:30px;position: absolute;right: 20px;" class="el-icon-edit" @click="editPost(item)"></i>
+            <i class="el-icon-delete" @click="deletePost(item.id)"></i>
           </div>
-          <div class="author">{{item.author}}</div>
+          <div style="font-size: 15px;" class="author">作者：{{item.username}}</div>
+          
         </el-card>
       </el-tooltip>
       <edit-form @onSubmit="loadPosts()" ref="edit"></edit-form>
@@ -79,14 +86,14 @@ export default {
           }
         })
     },
-    deleteBook (id) {
-      this.$confirm('此操作将永久删除该书籍, 是否继续?', '提示', {
+    deletePost (id) {
+      this.$confirm('此操作将永久删除该贴, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         axios
-          .post('/delete', {id: id}).then(resp => {
+          .post('/delPost', {id: id}).then(resp => {
             if (resp && resp.status === 200) {
               this.loadPosts()
             }
@@ -99,7 +106,7 @@ export default {
         })
       })
     },
-    editBook (item) {
+    editPost (item) {
       this.$refs.edit.dialogFormVisible = true
       this.$refs.edit.form = {
         id:item.id,
@@ -111,6 +118,9 @@ export default {
         context: item.context,
         pid:item.pid
       }
+    },
+    findPost(item){
+      
     }
   }
 }

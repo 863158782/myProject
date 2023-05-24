@@ -23,3 +23,10 @@ spring:
     validationQuery: SELECT 1 FROM dual
     # 配置监控统计拦截的filters,去掉后，监控界面的sql无法统计
     filters: stat,wall,log4j
+
+tengxun:
+  accessKey: AKID1tc9MSM2TowpkX8WjjYBbnkVDhyc4HFy
+  secretKey: g8LJ4cw1rTqytysa5NSJwKVUHqAIEwWr
+  bucket: ap-guangzhou
+  bucketName: 863158782-1316220400
+  path: https://863158782-1316220400.cos.ap-guangzhou.myqcloud.com

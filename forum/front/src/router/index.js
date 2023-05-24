@@ -4,6 +4,7 @@ import AppIndex from '../components/home/AppIndex'
 import Login from '../components/Login'
 import Home from '../components/Home'
 import posts from '../components/forum/Posts'
+import PostContext from "../components/forum/PostContext"
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path:'/searchPost',
+      name:'Post',
+      component:PostContext
     }
   ]
 })
