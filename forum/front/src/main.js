@@ -23,6 +23,16 @@ Vue.config.productionTip = false
 
 Vue.use(hljs);
 Vue.use(ElementUI)
+
+
+//封装成一个指令
+Vue.directive('highlight', (el) => {
+  let blocks = el.querySelectorAll('pre code')
+  blocks.forEach((block) => {
+    highlight.highlightBlock(block)
+  })
+})
+
 // 这个的逻辑很简单，首先判断访问的路径是否需要登录，
 // 如果需要，判断 store 里有没有存储 user 的信息，如果存在，则放行，
 // 否则跳转到登录页面，并存储访问的页面路径（以便在登录后跳转到访问页）

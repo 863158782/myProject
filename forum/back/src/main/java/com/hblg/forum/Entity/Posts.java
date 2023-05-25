@@ -10,7 +10,7 @@ public class Posts {
     Long id;
     String cover;
     String title;
-    Long author;
+    String author;
     String date;
     String description;
     String context;

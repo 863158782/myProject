@@ -1,9 +1,15 @@
 package com.hblg.forum.Entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 public class User {
+    @TableId(type= IdType.AUTO)
     Long id;
     String username;
     String password;
+
+
 
     public Long getId() {
         return id;

@@ -10,4 +10,6 @@ public interface USerService {
     public boolean Login(String username,String password);
 
     public User findUserByID(long id);
+
+    public boolean Register(String username,String password);
 }

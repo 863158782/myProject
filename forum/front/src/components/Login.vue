@@ -1,6 +1,6 @@
 <template>
   <body id="poster">
-  <el-form class="login-container" label-position="left"
+  <el-form style="position: relative;" class="login-container" label-position="left"
            label-width="0px">
     <h3 class="login_title">系统登录</h3>
     <el-form-item>
@@ -14,6 +14,7 @@
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">登录</el-button>
     </el-form-item>
+    <el-link @click="goRegister"  style="position: absolute;bottom: 10px;right: 50px;" type="primary">注册</el-link>
   </el-form>
 
   <el-alert
@@ -33,8 +34,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: 'admin',
-        password: '123456'
+        username: '',
+        password: ''
       },
       responseResult: [],
       error:false
@@ -64,7 +65,11 @@ export default {
         .catch(failResponse => {
 
         })
+    },
+    goRegister(){
+      this.$router.push('/register');
     }
+
   }
 }
 </script>

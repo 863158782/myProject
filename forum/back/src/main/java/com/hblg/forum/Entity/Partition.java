@@ -6,5 +6,4 @@ import lombok.Data;
 public class Partition {
     Long id;
     String name;
-    String location;
 }

@@ -24,4 +24,16 @@ public class UseraController {
         }
         return result;
     }
+
+    @PostMapping("api/register")
+    public Result Register(@RequestBody User user){
+        Result result=new Result();
+        if(userService.Register(user.getUsername(), user.getPassword())){
+            result.setCode(200);
+        }
+        else{
+            result.setCode(400);
+        }
+        return result;
+    }
 }

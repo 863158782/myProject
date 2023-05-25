@@ -5,7 +5,7 @@ import Login from '../components/Login'
 import Home from '../components/Home'
 import posts from '../components/forum/Posts'
 import PostContext from "../components/forum/PostContext"
-
+import Register from '../components/Register'
 Vue.use(Router)
 
 export default new Router({
@@ -20,6 +20,12 @@ export default new Router({
         requireAuth: true
       }
     },
+    {
+      path:'/register',
+      name:'register',
+      component:Register
+    }
+    ,
     {
       path: '/home',
       name: 'Home',

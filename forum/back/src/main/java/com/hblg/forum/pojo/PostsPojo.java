@@ -11,11 +11,10 @@ public class PostsPojo {
         Long id;
         String cover;
         String title;
-        Long author;
+        String author;
         String date;
         String description;
         String context;
         Long pid;
         Long visited;
-        String username;
 }

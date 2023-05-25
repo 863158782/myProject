@@ -21,11 +21,11 @@ public class PostsController {
     @Autowired
     PostsServiceImpl postsService;
 
-    @GetMapping("/getPosts")
-    public Result getAllPosts(){
+    @GetMapping("/getPosts/{pid}")
+    public Result getAllPosts(@PathVariable Long pid){
         Result result=new Result();
         result.setCode(200);
-        result.setData(postsService.getAllPosts());
+        result.setData(postsService.getAllPosts(pid));
         return result;
     }
 

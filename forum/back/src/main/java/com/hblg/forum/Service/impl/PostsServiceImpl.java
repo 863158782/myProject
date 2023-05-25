@@ -25,19 +25,27 @@ public class PostsServiceImpl implements PostsService {
     UserServiceImpl userService;
 
     @Override
-    public List<PostsPojo> getAllPosts() {
-        List<PostsPojo> postsPojos=new ArrayList<>();
-        List<Posts> list=postsMapper.selectList(null);
-        for(int i=0;i<list.size();i++){
-            PostsPojo po=new PostsPojo();
-            copyPosts(list.get(i),po);
-            postsPojos.add(po);
-            User user=userService.findUserByID(list.get(i).getAuthor());
-            postsPojos.get(i).setUsername(user.getUsername());
-            System.out.println(postsPojos.get(i).getUsername());
+    public List<Posts> getAllPosts(Long pid) {
+//        List<PostsPojo> postsPojos=new ArrayList<>();
+        QueryWrapper<Posts> queryWrapper=new QueryWrapper<>();
+        List<Posts> list=new ArrayList<>();
+        if(pid==0)
+            list=postsMapper.selectList(null);
+        else{
+            queryWrapper.lambda().eq(Posts::getPid,pid);
+            list=postsMapper.selectList(queryWrapper);
         }
 
-        return postsPojos;
+//        for(int i=0;i<list.size();i++){
+//            PostsPojo po=new PostsPojo();
+//            copyPosts(list.get(i),po);
+//            postsPojos.add(po);
+//            User user=userService.findUserByID(list.get(i).getAuthor());
+//            postsPojos.get(i).setUsername(user.getUsername());
+//            System.out.println(postsPojos.get(i).getUsername());
+//        }
+
+        return list;
     }
 
     @Override
@@ -54,7 +62,7 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
-    public PostsPojo findPostById(Long id) {
+    public Posts findPostById(Long id) {
         //增加访问量
         Posts posts=postsMapper.selectById(id);
         posts.setVisited(posts.getVisited()+1);
@@ -62,11 +70,11 @@ public class PostsServiceImpl implements PostsService {
         wrapper.lambda().eq(Posts::getId,posts.getId());
         postsMapper.update(posts,wrapper);
         //拷贝
-        PostsPojo postsPojo=new PostsPojo();
-        copyPosts(posts,postsPojo);
-        //找到用户名并设置
-        postsPojo.setUsername(userService.findUserByID(postsPojo.getId()).getUsername());
-        return postsPojo;
+//        PostsPojo postsPojo=new PostsPojo();
+//        copyPosts(posts,postsPojo);
+//        //找到用户名并设置
+//        postsPojo.setUsername(userService.findUserByID(postsPojo.getId()).getUsername());
+        return posts;
     }
 
     @Override

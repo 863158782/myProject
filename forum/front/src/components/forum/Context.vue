@@ -14,7 +14,7 @@
         <el-card style="width: 255px;margin-bottom: 20px;height: 240px;float: left;margin-right: 15px" class="book"
                  bodyStyle="padding:10px" shadow="hover">
           <div class="cover" @click="findPost(item)">
-            <router-link style="position: absolute;z-index: 12" :to='{path:"/searchPost",query:{id:item.id,title:item.title,context:item.context,date:item.date,author:item.author,visited:item.visited,username:item.username}}'>
+            <router-link style="position: absolute;z-index: 12" :to='{path:"/searchPost",query:{id:item.id,title:item.title,context:item.context,date:item.date,author:item.author,visited:item.visited}}'>
               <img :src="item.cover" alt="封面">
             </router-link>
               
@@ -25,10 +25,14 @@
               <a style="font-size: 20px;color: black;" href="">{{item.title}}</a>
             </div>
             <span class="el-tag el-tag--success el-tag--mini el-tag--light" style="position: absolute;right: 5px;top: -180px;z-index: 20;">阅读量：{{ item.visited }}</span>
-            <i style="width:30px;position: absolute;right: 20px;" class="el-icon-edit" @click="editPost(item)"></i>
-            <i class="el-icon-delete" @click="deletePost(item.id)"></i>
+       
+            <span v-if="isTrue(item.author)">
+              <i style="width:30px;position: absolute;right: 20px;" class="el-icon-edit" @click="editPost(item)"></i>
+              <i class="el-icon-delete" @click="deletePost(item.id)"></i>
+            </span>
+           
           </div>
-          <div style="font-size: 15px;" class="author">作者：{{item.username}}</div>
+          <div style="font-size: 15px;" class="author">作者：{{item.author}}</div>
           
         </el-card>
       </el-tooltip>
@@ -53,11 +57,27 @@ import axios from 'axios'
 export default {
   name: 'Context',
   components: {EditForm, SearchBar},
+  props:{
+    pid:{
+      type:Number
+    }
+  },
   data () {
     return {
       posts: [],
       currentPage: 1,
       pagesize: 17
+    }
+  },
+  watch:{
+    pid:function(newValue,oldValue){
+      var _this = this
+      axios.get('/getPosts/'+newValue).then(resp => {
+        if (resp.data.code === 200) {
+          _this.posts = resp.data.data
+        }
+      })
+      console.log(newValue);
     }
   },
   created(){
@@ -66,7 +86,7 @@ export default {
   methods: {
     loadPosts () {
       var _this = this
-      axios.get('/getPosts').then(resp => {
+      axios.get('/getPosts/0').then(resp => {
         if (resp.data.code === 200) {
           _this.posts = resp.data.data
         }
@@ -119,8 +139,13 @@ export default {
         pid:item.pid
       }
     },
-    findPost(item){
-      
+    isTrue(author){
+      if(author==this.$store.state.user.username){
+        return true;
+      }
+      else{
+        return false;
+      }
     }
   }
 }

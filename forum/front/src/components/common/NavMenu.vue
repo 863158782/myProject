@@ -12,6 +12,7 @@
     </el-menu-item>
     <el-button @click="logout()" style="position: absolute; top: 10px;right: 100px;">注销</el-button>
     <span style="position: absolute;padding-top: 20px;right: 50%;font-size: 20px;font-weight: bold">Welcome to the forum</span>
+    <span style="font-size: 25px;color: skyblue;position: absolute;right: 200px;top: 15px;">{{ this.$store.state.user.username }}</span>
     <!-- <el-button @click="setNavlist()" style="position: absolute; top: 10px;right: 100px;">category</el-button> -->
 
   </el-menu>

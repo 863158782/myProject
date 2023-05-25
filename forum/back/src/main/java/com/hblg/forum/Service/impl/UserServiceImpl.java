@@ -20,12 +20,30 @@ public class UserServiceImpl implements USerService {
         QueryWrapper<User> queryWrapper=new QueryWrapper<>();
         queryWrapper.lambda().eq(User::getUsername,username);
         queryWrapper.lambda().eq(User::getPassword,password);
-        return userMapper.selectList(queryWrapper)==null?false:true;
+        return userMapper.selectOne(queryWrapper)==null?false:true;
     }
 
     @Override
     public User findUserByID(long id) {
 
         return userMapper.selectById(id);
+    }
+
+    @Override
+    public boolean Register(String username, String password) {
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+        queryWrapper.lambda().eq(User::getUsername,username);
+        boolean flag= userMapper.selectOne(queryWrapper)==null?false:true;
+        if(flag){
+            return false;
+        }
+        else{
+            User user=new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            userMapper.insert(user);
+            return true;
+        }
+
     }
 }
