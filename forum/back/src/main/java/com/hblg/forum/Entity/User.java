@@ -8,8 +8,15 @@ public class User {
     Long id;
     String username;
     String password;
+    String avatar;
 
+    public String getAvatar() {
+        return avatar;
+    }
 
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public Long getId() {
         return id;

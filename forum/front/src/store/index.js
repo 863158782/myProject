@@ -6,13 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
-      username: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username
+      id: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).id,
+      username: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username,
+      avatar:window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).avatar
     },
-    partition_id:-1
   },
   mutations: {
     login (state, user) {
-      this.state.user = user
+      this.state.user=user
       window.localStorage.setItem('user', JSON.stringify(user))
     },
     logout(state){
@@ -23,3 +24,4 @@ export default new Vuex.Store({
     }
   }
 })
+

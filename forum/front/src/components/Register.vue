@@ -50,7 +50,11 @@
         var _this = this
         // console.log(this.$store.state)
         if(this.Form.password != this.Form.testifyPassword){
-            alert("两次密码不一致");
+          this.$message({
+            showClose: true,
+            type: "warning",
+            message: "两次密码不一致！",
+          });
             return ;
         }
         this.$axios

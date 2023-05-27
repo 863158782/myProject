@@ -15,9 +15,11 @@ public class UseraController {
 
     @PostMapping("api/login")
     public Result Login(@RequestBody User user){
+        User q=userService.Login(user.getUsername(), user.getPassword());
         Result result=new Result();
-        if(userService.Login(user.getUsername(), user.getPassword())){
+        if(q!=null){
             result.setCode(200);
+            result.setData(q);
         }
         else{
             result.setCode(400);

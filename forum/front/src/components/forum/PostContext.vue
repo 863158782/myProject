@@ -1,5 +1,5 @@
-<template>
-    <div style="width: 100%;height: 100vh;background: url(https://img0.baidu.com/it/u=2485580759,2437861565&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=375);background-repeat: no-repeat;background-size: 100%;">
+<template style="background-color:red;" >
+    <div style="width: 100%;height: 100vh;">
         <div style="width: 60%;margin-left:20% ;">
             
             <div style="text-align: center;">
@@ -11,14 +11,25 @@
         <div style="padding: 15px;" v-highlight v-html="context"></div>
         
         <div style="background-color: #f0f9eb;text-align: center;font-size: 12px;">END</div>
+            
+    </div>
+        
+        <!-- 评论 -->
+        <div style="width: 60%;margin-left: 20%;height: 80%;  ">
+            <Comment :comments="comments" 
+                :id="id"
+                :author="author"
+            ></Comment>
         </div>
     </div>
   </template>
   
   <script>
   import {marked} from "marked"
+  import Comment from '../forum/Comment.vue'
   export default {
     name: 'PostContext',
+    components:{Comment},
     data(){
         return{
             id:0,
@@ -27,6 +38,7 @@
             author:"",
             date:"",
             visited:0
+            
         }
     },
     created(){

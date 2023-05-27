@@ -53,13 +53,17 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             // var data = this.loginForm
-            _this.$store.commit('login', _this.loginForm)
+            _this.$store.commit('login', successResponse.data.data)
             var path = this.$route.query.redirect
             this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
             
           }
           else if(successResponse.data.code==400){
-              _this.error=true
+            this.$message({
+            showClose: true,
+            type: "error",
+            message: "用户名或密码错误！",
+          });
           }
         })
         .catch(failResponse => {

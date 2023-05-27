@@ -4,10 +4,10 @@
       <div class="home">
         <div id="header-div">
           <div style="height: 150px"></div>
-          <!-- <carousel></carousel> -->
-          <!-- <quick-nav style="float: right;margin-top: -450px;margin-right: 480px"></quick-nav> -->
+          <carousel></carousel>
+          <quick-nav style="float: right;margin-top: -450px;margin-right: 480px"></quick-nav>
         </div>
-        <!-- <update-card id="update-card"></update-card> -->
+        <update-card id="update-card"></update-card>
       </div>
   </div>
 </template>

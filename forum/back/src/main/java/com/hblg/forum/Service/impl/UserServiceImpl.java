@@ -16,11 +16,11 @@ public class UserServiceImpl implements USerService {
     UserMapper userMapper;
 
     @Override
-    public boolean Login(String username,String password) {
+    public User Login(String username,String password) {
         QueryWrapper<User> queryWrapper=new QueryWrapper<>();
         queryWrapper.lambda().eq(User::getUsername,username);
         queryWrapper.lambda().eq(User::getPassword,password);
-        return userMapper.selectOne(queryWrapper)==null?false:true;
+        return userMapper.selectOne(queryWrapper);
     }
 
     @Override
