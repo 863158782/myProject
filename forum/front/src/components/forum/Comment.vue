@@ -5,8 +5,11 @@
           <div class="msg-head" >
             <!-- <img v-if="userAvatar" :src="userAvatar" alt="" /> -->
             <img :src="myAvatar" alt="" />
+            <button id="e" @click="change" style="width: 20px;height:20px;border-style: none;background-color: white;position: absolute;left: 20px;top: 80px;;font-size: 20px;">🙂</button>
+            <VEmojiPicker style="position: absolute;z-index: 10;top: 120px;" v-show="showDialog" @select="selectEmoji"/>
+
             <textarea
-            style="border-radius: 5%;border: skyblue solid 1px;"
+            style="border-radius: 3%;border: skyblue solid 1px;"
               type="textarea"
               :class="inputStatusClass"
               placeholder="请输入内容..."
@@ -16,7 +19,7 @@
               rows="5"
             >
             </textarea>
-            <button style="text-align: center;width: 80px;height: 80px;font-size: 20px;" @click="submit">发表</button>
+            <button style="text-align: center;width: 80px;height: 80px;font-size: 20px;color: skyblue;" @click="submit">发表</button>
           </div>
           <div class="msg-content">
             <comments-child
@@ -31,6 +34,7 @@
   </template>
   
   <script>
+  import {VEmojiPicker} from 'v-emoji-picker'
   import CommentsChild from '../forum/CommentChild.vue';
   import dayjs from "dayjs";
   export default {
@@ -57,7 +61,8 @@
         inputStatusClass: "",
         // 计数
         layerCount: 0,
-        myAvatar:''
+        myAvatar:'',
+        showDialog:false
       };
     },
     created() {
@@ -83,6 +88,7 @@
     },
     components: {
       "comments-child": CommentsChild,
+      VEmojiPicker
     },
     methods: {
       // 提交
@@ -134,43 +140,13 @@
         })
         
       },
-      initData() {
-        var self = this;
-        // self.getComments();
-      },
-      // 获取数据
-      getComments() {
-        var self = this;
-        // 这是自己伪造的数据
-        // 要根据接口要求进行修改
-        self.comments = [
-          {
-            id: "55824b1c",
-            postDate: "2022-08-05 8:09",
-            senderName: "Irene",
-            senderAvatar: "https://img2.baidu.com/it/u=4259162227,2745887984&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-            receiverName: null,
-            receiverAvatar: null,
-            parentId: null,
-            text: "测试信息",
-            likes: 0,
-            children: [
-              {
-                parentId: "55824b1c",
-                text: "回复信息",
-                postDate: "2022-08-05 12:10",
-                senderAvatar: "https://img2.baidu.com/it/u=1086994821,1717552073&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=476",
-                senderName: "Wendy",
-                id: "f0e3a81b",
-                likes: 0,
-                receiverName: "Irene",
-                receiverAvatar: "",
-              },
-            ],
-            
-          },
-        ];
-      },
+      selectEmoji(emoji){
+      this.newComment=this.newComment+emoji.data;
+      this.change();
+     },
+     change(){
+      this.showDialog=!this.showDialog
+     }
     },
   };
   </script>
@@ -189,7 +165,7 @@
   .msg-all-contain {
     width: 100%;
     height: 100%;
-    overflow-y: auto;
+    /* overflow-y: auto; */
   }
   
   .msg-board-contain {

@@ -1,7 +1,7 @@
 <template>
   <el-menu
     class="categories"
-    default-active=""
+    default-active="0"
     style="text-align: left;"
     active-text-color="blue"
     >

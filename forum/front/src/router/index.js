@@ -6,6 +6,8 @@ import Home from '../components/Home'
 import posts from '../components/forum/Posts'
 import PostContext from "../components/forum/PostContext"
 import Register from '../components/Register'
+import MessageBoard from '../components/forum/MessageBoard'
+
 Vue.use(Router)
 
 export default new Router({
@@ -47,6 +49,15 @@ export default new Router({
           meta: {
             requireAuth: true
           }
+        },
+        {
+          path:'/searchPost',
+          name:'Post',
+          component:PostContext
+        },{
+          path:'/messageBoard',
+          name:'messageBoard',
+          component:MessageBoard
         }
       ]
     },
@@ -54,11 +65,6 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path:'/searchPost',
-      name:'Post',
-      component:PostContext
     }
   ]
 })

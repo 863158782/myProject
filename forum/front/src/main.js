@@ -12,6 +12,9 @@ import marked from 'marked'
 //全局注册基于Vue的markdown编辑器mavon-editor
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+
+import {VEmojiPicker} from 'v-emoji-picker'
+
 //使用mavon-editor
 Vue.use(mavonEditor)
 Vue.use(marked)
@@ -20,11 +23,10 @@ axios.defaults.baseURL = 'http://localhost:8443/api'
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
-
 Vue.use(hljs);
 Vue.use(ElementUI)
 
-
+// Vue.use(VEmojiPicker)
 //封装成一个指令
 Vue.directive('highlight', (el) => {
   let blocks = el.querySelectorAll('pre code')
@@ -59,6 +61,6 @@ new Vue({
   render: h => h(App),
   router,
   store,
-  components: {App},
+  components: {App,VEmojiPicker},
   template: '<App/>'
 })

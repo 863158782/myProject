@@ -1,9 +1,8 @@
 <template>
-    <div class="quick-nav">
-      <img src="../../assets/img/icon/icon2.png" alt="" class="monster">
-      <a href="https://github.com/Antabot/White-Jotter/blob/master/README.md" target="_blank">
-        <img src="../../assets/img/icon/icon5.png" alt="" class="readme">
-      </a>
+    
+    <div class="quick-nav" style="width: 800px;position: absolute;right: -20px;top: 530px;z-index: 1;">
+      <h1 style="position: absolute;right: 650px;top: 90px;">采用技术</h1>
+      <img style="position: absolute;right:290px;" src="../../assets/img/icon/icon2.png"  alt="" class="monster">
       <img src="../../assets/img/icon/icon7.png" alt="" class="spark">
       <img src="../../assets/img/icon/logo.png" alt="" class="logo">
     </div>

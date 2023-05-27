@@ -1,5 +1,6 @@
 <template>
     <div>
+      <VEmojiPicker style="position: fixed;z-index: 10;top: 200px;left: 0px;" v-show="showDialog" @select="selectEmoji"/>
       <div
         :class="count > 0 ? '' : 'comments-child-contain'"
         v-for="(item, index) in comments"
@@ -48,7 +49,7 @@
             </div>
             <div class="reply-comment">
               <img v-if="userAvatar" :src="userAvatar" alt="" />
-              <!-- <img v-else :src="require('@/assets/default.jpg')" alt="" /> -->
+              <button id="e" @click="change" style="width: 20px;height:20px;border-style: none;background-color: white;position: absolute;left: 50px;top: 110px;;font-size: 20px;">🙂</button>
               <input
                 :class="inputStatusClass"
                 type="text"
@@ -102,16 +103,7 @@
                     <span class="comments-child-time"> {{ child.postDate }} </span>
                     <!--删除和回复-->
                     <div class="comments-child-right">
-                        <!-- <span class="fa fa-thumbs-up delete" @click="commentLike(child)">
-                        <i style="font-size: 20px;" class="el-icon-top"></i>{{
-                        child.likes
-                        }}</span>
-                        <span
-                        class="fa fa-trash-o delete"
-                        @click="commentDelete(child, $event)"
-                        v-show="true"
-                        >删除</span
-                        > -->
+             
                         <span
                         class="fa fa-comment-o comments"
                         @click="goReply(child, $event)"
@@ -121,7 +113,8 @@
                     </div>
                     <div class="reply-comment">
                     <img v-if="userAvatar" :src="userAvatar" alt="" />
-                    <!-- <img v-else :src="require('@/assets/default.jpg')" alt="" /> -->
+                    <button id="e" @click="change" style="width: 20px;height:20px;border-style: none;background-color: white;position: absolute;left: 50px;top: 110px;;font-size: 20px;">🙂</button>
+
                     <input
                         :class="inputStatusClass"
                         type="text"
@@ -139,8 +132,10 @@
   
   <script>
 import dayjs from "dayjs";
+import {VEmojiPicker} from 'v-emoji-picker'
   export default {
     name: "CommentsChild",
+    components:{VEmojiPicker},
     data() {
       return {
         // 回复评论
@@ -152,7 +147,8 @@ import dayjs from "dayjs";
         userAvatar: "",
         // 点赞数
         like: 0,
-        child:{}
+        child:{},
+        showDialog:false
       };
     },
     created() {
@@ -323,6 +319,13 @@ import dayjs from "dayjs";
         _this.replyComment = "";
         replyDom.style.display = "none";
       },
+      selectEmoji(emoji){
+      this.replyComment=this.replyComment+emoji.data;
+      this.change();
+     },
+     change(){
+      this.showDialog=!this.showDialog
+     }
     },
   };
   </script>
@@ -336,7 +339,8 @@ import dayjs from "dayjs";
     padding: 18px 10px 18px 10px;
   }
   .comments-child-contain {
-    border-bottom: 1px solid #d3d9e1;
+    /* border-bottom: 1px solid #d3d9e1; */
+    box-shadow: 2px 2px 2px #ccc;
     padding: 0 25px;
   }
   
