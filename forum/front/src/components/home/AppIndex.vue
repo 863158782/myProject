@@ -13,11 +13,9 @@
 <script>
 import Carousel from './Carousel'
 import QuickNav from './QuickNav'
-import UpdateCard from './UpdateCard'
-import SideMenu from './SideMenu'
 export default {
   name: 'AppIndex',
-  components: {Carousel, QuickNav, UpdateCard, SideMenu}
+  components: {Carousel, QuickNav}
 }
 </script>
 

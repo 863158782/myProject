@@ -32,7 +32,6 @@
         </el-form-item>
         <el-form-item label="封面" :label-width="formLabelWidth" prop="cover">
           <el-input v-model="form.cover" autocomplete="off" placeholder="图片 URL"></el-input>
-          <img-upload @onUpload="uploadImg" ref="imgUpload"></img-upload>
         </el-form-item>
         <el-form-item label="内容"  :label-width="formLabelWidth" prop="context">
           <!-- <el-input type="textarea" v-model="form.context" :rows="10" autocomplete="off"></el-input> -->
@@ -62,11 +61,9 @@
 </template>
 
 <script>
-import ImgUpload from './ImgUpload'
 import 'github-markdown-css/github-markdown.css'
 export default {
   name: 'EditForm',
-  comments: {ImgUpload},
   data () {
     return {
       dialogFormVisible: false,
@@ -192,9 +189,6 @@ export default {
             _this.$router.go(0)
           }
         })
-    },
-    uploadImg () {
-      this.form.cover = this.$refs.imgUpload.url
     },
     //上传图片接口pos 表示第几个图片 
   handleEditorImgAdd(pos , $file){
