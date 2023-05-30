@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-public class UseraController {
+public class UserController {
 
     @Autowired
     UserServiceImpl userService;

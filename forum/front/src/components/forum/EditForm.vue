@@ -3,9 +3,11 @@
     <i class="el-icon-circle-plus-outline"  @click="dialogFormVisible = true"></i>
     <el-dialog
     show-close
-      title="添加/修改图书"
+      title="添加/修改"
       :visible.sync="dialogFormVisible"
-      @close="clear">
+      @close="clear"
+      fullscreen
+      >
       <el-form v-model="form" style="text-align: left" ref="dataForm">
         <el-form-item label="标题" :label-width="formLabelWidth" prop="title">
           <el-input v-model="form.title" autocomplete="off" placeholder=""></el-input>
@@ -43,7 +45,7 @@
           />
         </el-form-item>
         <el-form-item label="板块" :label-width="formLabelWidth" prop="pid">
-          <el-select v-model="form.pid" placeholder="请选择分类">
+          <el-select v-model:value="form.pid" placeholder="请选择分类">
             <el-option label="python" value="1"></el-option>
             <el-option label="php" value="2"></el-option>
             <el-option label="vue" value="3"></el-option>
@@ -79,6 +81,7 @@ export default {
         pid:"",
         visited:0
       },
+      list:[],
       formLabelWidth: '120px',
       toolbars: {
     bold: true, // 粗体
@@ -122,6 +125,15 @@ export default {
     this.form.author=JSON.parse(window.localStorage.getItem('user' || '[]')).username
   },
   methods: {
+    getMenu(){
+      var _this=this
+      axios.get('/Partition').then(res => {
+          if(res.data.code==200){
+              _this.list=res.data.data
+              console.log(list);
+          }
+      })
+    },
     clear () {
       this.form = {
         id: '',
@@ -163,6 +175,7 @@ export default {
       return year + "-" + month + "-" + day + " " + hour + sign2 + minutes + sign2 + seconds;
     },
     onSubmit () {
+      var _this=this
       this.$axios
         .post('/Posts', {
           id:this.form.id,
@@ -175,7 +188,8 @@ export default {
           pid: this.form.pid
         }).then(resp => {
           if (resp.data.code === 200) {
-            this.dialogFormVisible = false
+            _this.dialogFormVisible = false
+            _this.$router.go(0)
           }
         })
     },

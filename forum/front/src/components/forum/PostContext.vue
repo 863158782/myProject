@@ -1,15 +1,15 @@
 <template style="background-color:red;" >
     <div style="width: 100%;height: 100vh;">
+        <el-button size="mini" style="position: fixed;top: 80px;left: 50px;" @click="go_context" round>返回</el-button>
         <div style="width: 60%;margin-left:20% ;">
             
-            <div style="text-align: center;">
+            <div style="margin-top: 70px;text-align: center;">
                 <h1 style="text-align: center;">{{ title }}</h1>
                 <span>作者：<b>{{ author }}</b></span>
                 &nbsp;&nbsp;<span>发布时间：<b>{{ date }}</b></span>
                 &nbsp;&nbsp;<span>阅读量：<b>{{ visited }}</b></span>
             </div>
         <div style="padding: 15px;" v-highlight v-html="context"></div>
-        
         <div style="background-color: #f0f9eb;text-align: center;font-size: 12px;">END</div>
             
     </div>
@@ -55,6 +55,11 @@
                 _this.context=marked(this.context)
             }
         })
+    },
+    methods:{
+        go_context(){
+            this.$router.push("/posts");
+        }
     }
   }
   </script>

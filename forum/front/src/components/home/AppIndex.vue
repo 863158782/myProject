@@ -1,13 +1,11 @@
 <template>
   <div style="margin-top: 40px">
-    <!-- <side-menu id="side-menu"></side-menu> -->
       <div class="home">
         <div id="header-div">
-          <div style="height: 150px"></div>
+          <div style="height: 150px;margin-top: 100px;"></div>
           <carousel></carousel>
-          <quick-nav style="float: right;margin-top: -450px;margin-right: 480px;z-index: 5px;"></quick-nav>
+          <quick-nav style="float: right;margin-top: -380px;margin-right: 480px;z-index: 5px;"></quick-nav>
         </div>
-        <!-- <update-card id="update-card"></update-card> -->
       </div>
   </div>
 </template>

@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <el-row style="height: 840px;">
-      <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
-      <el-tooltip effect="dark" placement="right"
-                  v-for="item in posts.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+  <div >
+    <el-row style="height: 700px;">
+      <search-bar  @onSearch="searchResult" ref="searchBar"></search-bar>
+      <el-tooltip
+     
+                 effect="dark" placement="right"
+                  v-for="item in posts"
                   :key="item.id">
         <!-- <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.title}}</p> -->
         <!-- <p slot="content" style="font-size: 13px;margin-bottom: 6px">
@@ -11,11 +13,11 @@
           <span>{{item.date}}</span> /
           <span>{{item.press}}</span>
         </p> -->
-        <el-card style="width: 255px;margin-bottom: 20px;height: 240px;float: left;margin-right: 15px" class="book"
+        <el-card  style="width: 270px;margin-bottom: 20px;height: 240px;float: left;margin-right: 15px" class="book"
                  bodyStyle="padding:10px" shadow="hover">
           <div class="cover" @click="findPost(item)">
             <router-link style="position: absolute;z-index: 12" :to='{path:"/searchPost",query:{id:item.id,title:item.title,context:item.context,date:item.date,author:item.author,visited:item.visited}}'>
-              <img :src="item.cover" alt="封面">
+              <img style="width: 250px;position: absolute;left: -60px;" :src="item.cover" alt="封面">
             </router-link>
               
            
@@ -24,7 +26,7 @@
             <div class="title">
               <a style="font-size: 20px;color: black;" href="">{{item.title}}</a>
             </div>
-            <span class="el-tag el-tag--success el-tag--mini el-tag--light" style="position: absolute;right: 5px;top: -180px;z-index: 20;">阅读量：{{ item.visited }}</span>
+            <span class="el-tag el-tag--success el-tag--mini el-tag--light" style="position: absolute;right: 0;top: -180px;z-index: 20;">阅读量：{{ item.visited }}</span>
        
             <span v-if="isTrue(item.author)">
               <i style="width:30px;position: absolute;right: 20px;" class="el-icon-edit" @click="editPost(item)"></i>
@@ -36,14 +38,15 @@
           
         </el-card>
       </el-tooltip>
-      <edit-form @onSubmit="loadPosts()" ref="edit"></edit-form>
+      <edit-form style="width: 1000px;" @onSubmit="loadPosts()" ref="edit"></edit-form>
     </el-row>
     <el-row>
       <el-pagination
+      style="overflow: hidden;"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="pagesize"
-        :total="posts.length">
+        :total="total">
       </el-pagination>
     </el-row>
   </div>
@@ -66,15 +69,17 @@ export default {
     return {
       posts: [],
       currentPage: 1,
-      pagesize: 17
+      pagesize: 6,
+      total:0
     }
   },
   watch:{
     pid:function(newValue,oldValue){
       var _this = this
-      axios.get('/getPosts/'+newValue).then(resp => {
+      axios.get('/page?current='+this.currentPage+"&size="+this.pagesize+"&pid="+this.pid).then(resp => {
         if (resp.data.code === 200) {
-          _this.posts = resp.data.data
+          _this.posts = resp.data.data.records
+          _this.total=resp.data.data.total
         }
       })
       console.log(newValue);
@@ -82,29 +87,31 @@ export default {
   },
   created(){
     this.loadPosts()
+    this.total=this.posts.length
   },
   methods: {
     loadPosts () {
       var _this = this
-      axios.get('/getPosts/0').then(resp => {
+      axios.get('/page?current='+this.currentPage+"&size="+this.pagesize+"&pid="+0).then(resp => {
         if (resp.data.code === 200) {
-          _this.posts = resp.data.data
+          _this.posts = resp.data.data.records
+          _this.total=resp.data.data.total
         }
       })
     },
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage
-      console.log(this.currentPage)
-    },
-    searchResult () {
       var _this = this
-      this.$axios
-        .get('/search?keywords=' + this.$refs.searchBar.keywords, {
-        }).then(resp => {
-          if (resp && resp.status === 200) {
-            _this.books = resp.data
-          }
-        })
+      axios.get('/page?current='+this.currentPage+"&size="+this.pagesize+"&pid="+this.pid).then(resp => {
+        if (resp.data.code === 200) {
+          _this.posts = resp.data.data.records
+          _this.total=resp.data.data.total
+        }
+      })
+    },
+    searchResult (posts,total) {
+      this.posts=posts
+      this.total=total
     },
     deletePost (id) {
       this.$confirm('此操作将永久删除该贴, 是否继续?', '提示', {
@@ -136,16 +143,11 @@ export default {
         date: item.date,
         description: item.description,
         context: item.context,
-        pid:item.pid
+        pid:item.pid,
       }
     },
     isTrue(author){
-      if(author==this.$store.state.user.username){
-        return true;
-      }
-      else{
-        return false;
-      }
+      return author==this.$store.state.user.username
     }
   }
 }

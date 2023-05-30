@@ -2,10 +2,10 @@
   <el-container>
     <el-aside style="width: 200px;margin-top: 20px">
       <switch></switch>
-      <SideMenu @indexSelect="listByCategory" ref="sideMenu"></SideMenu>
+      <SideMenu style="margin-top: 40px;" @indexSelect="listByCategory" ref="sideMenu"></SideMenu>
     </el-aside>
     <el-main>
-      <Context :pid="pid" class="posts-area" ref="ContextArea"></Context>
+      <Context style="margin-top: 50px;" :pid="pid"  class="posts-area" ref="ContextArea"></Context>
     </el-main>
   </el-container>
 </template>
@@ -19,7 +19,7 @@ export default {
   components: {Context, SideMenu},
   data(){
     return{
-      pid:0
+      pid:0,
     }
   },
   methods: {

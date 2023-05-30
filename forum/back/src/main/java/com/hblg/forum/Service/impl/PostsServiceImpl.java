@@ -2,6 +2,8 @@ package com.hblg.forum.Service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hblg.forum.Entity.Posts;
 import com.hblg.forum.Entity.User;
 import com.hblg.forum.Mapper.PostsMapper;
@@ -80,6 +82,26 @@ public class PostsServiceImpl implements PostsService {
     @Override
     public void delPostById(Long id) {
         postsMapper.deleteById(id);
+    }
+
+    @Override
+    public List<Posts> getPostsByNname(String name) {
+        QueryWrapper<Posts> queryWrapper=new QueryWrapper<>();
+        queryWrapper.like("title",name).or().like("author",name);
+        return postsMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public IPage<Posts> selectPage(int current, int size,Long pid,String name) {
+        Page<Posts> page=new Page<>(current,size);
+//        System.out.println(pid);
+        QueryWrapper<Posts> queryWrapper=new QueryWrapper<>();
+        queryWrapper.lambda().like(Posts::getTitle,name).or().like(Posts::getAuthor,name);
+        if(pid==0)
+            queryWrapper=null;
+        else
+            queryWrapper.lambda().eq(Posts::getPid,pid);
+        return postsMapper.selectPage(page,queryWrapper);
     }
 
     public void copyPosts(Posts posts,PostsPojo postsPojo){

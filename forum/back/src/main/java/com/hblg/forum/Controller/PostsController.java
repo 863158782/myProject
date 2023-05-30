@@ -40,24 +40,24 @@ public class PostsController {
         return new Result(postsService.findPostById(id));
     }
 
-    @PostMapping("imageUpload")
-    public Result imgUpload(@RequestParam("file")MultipartFile file){
-        if(!file.isEmpty()){
-            try{
-                String originalFilename = file.getOriginalFilename();
-                String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-                String newFilename = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + UUID.randomUUID().toString() + "." + extension;
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get("D:/imgs/", newFilename);
-                Files.write(path, bytes);
-                return new Result(path);
-            }
-            catch (Exception e){
-                System.out.println(e);
-            }
-        }
-        return new Result();
-    }
+//    @PostMapping("imageUpload")
+//    public Result imgUpload(@RequestParam("file")MultipartFile file){
+//        if(!file.isEmpty()){
+//            try{
+//                String originalFilename = file.getOriginalFilename();
+//                String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+//                String newFilename = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + UUID.randomUUID().toString() + "." + extension;
+//                byte[] bytes = file.getBytes();
+//                Path path = Paths.get("D:/imgs/", newFilename);
+//                Files.write(path, bytes);
+//                return new Result(path);
+//            }
+//            catch (Exception e){
+//                System.out.println(e);
+//            }
+//        }
+//        return new Result();
+//    }
 
     @PostMapping("/delPost")
     public Result delPost(@RequestBody Posts posts){
@@ -72,5 +72,15 @@ public class PostsController {
             }
         }
         return new Result(flag);
+    }
+
+    @GetMapping("/getPostsByName")
+    public Result gePostsByName(@RequestParam String name){
+        return new Result(postsService.getPostsByNname(name));
+    }
+
+    @GetMapping("/page")
+    public Result getPage(@RequestParam int current,int size,Long pid,String name){
+        return  new Result(postsService.selectPage(current,size,pid,name));
     }
 }

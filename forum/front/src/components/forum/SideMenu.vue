@@ -23,7 +23,8 @@ export default {
     }
   },
   created(){
-    this.getMenu()
+    this.getMenu();
+    // this.$parent.list=this.list;
   },
   methods: {
     handleSelect (item) {

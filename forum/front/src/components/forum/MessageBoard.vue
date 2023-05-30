@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 80%;margin-left: 10%;">
+    <div style="width: 80%;margin-left: 10%;margin-top: 50px;">
     <el-card class="el-card-d" shadow="always">
              <div class="infinite-list-wrapper" style="overflow:auto;">
                 <el-timeline
