@@ -1,7 +1,7 @@
 <template>
   <div >
     <el-row style="height: 700px;">
-      <search-bar  @onSearch="searchResult" ref="searchBar"></search-bar>
+      <search-bar :pageSon="pageSon"  @searchResult="searchResult" ref="searchBar"></search-bar>
       <el-tooltip
      
                  effect="dark" placement="right"
@@ -70,7 +70,9 @@ export default {
       posts: [],
       currentPage: 1,
       pagesize: 6,
-      total:0
+      total:0,
+      pageSon:{},
+      keywords:""
     }
   },
   watch:{
@@ -88,6 +90,10 @@ export default {
   created(){
     this.loadPosts()
     this.total=this.posts.length
+    this.pageSon.currentPage=this.currentPage
+    this.pageSon.pagesize=this.pagesize
+    // this.pageSon.pid=this.pid
+    console.log(this.pageSon)
   },
   methods: {
     loadPosts () {
@@ -102,16 +108,17 @@ export default {
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage
       var _this = this
-      axios.get('/page?current='+this.currentPage+"&size="+this.pagesize+"&pid="+this.pid).then(resp => {
+      axios.get('/page?current='+this.currentPage+"&size="+this.pagesize+"&pid="+this.pid+"&name="+this.keywords).then(resp => {
         if (resp.data.code === 200) {
           _this.posts = resp.data.data.records
           _this.total=resp.data.data.total
         }
       })
     },
-    searchResult (posts,total) {
+    searchResult (posts,total,keywords) {
       this.posts=posts
       this.total=total
+      this.keywords=keywords
     },
     deletePost (id) {
       this.$confirm('此操作将永久删除该贴, 是否继续?', '提示', {

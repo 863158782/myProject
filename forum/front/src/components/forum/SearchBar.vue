@@ -15,23 +15,28 @@
 <script>
 export default {
   name: 'SearchBar',
+  props:{
+
+        pageSon:{
+          type:Object
+        }
+      },
   data () {
     return {
       keywords: '',
-      posts:[]
+      
     }
   },
   methods: {
     searchClick () {
       var _this = this
-      axios.get('/page?current='+this.currentPage+"&size="+this.pagesize+"&pid="+0).then(resp => {
+      this.$axios.get('/page?current='+this.pageSon.currentPage+"&size="+this.pageSon.pagesize+"&pid=0&name="+this.keywords).then(resp => {
         if (resp.data.code === 200) {
-          _this.posts = resp.data.data.records
           _this.$message({
             type:'success',
             message:"共计"+resp.data.data.total+"条"
           })
-          _this.$emit('searchResult',_this.posts,resp.data.data.total)
+          _this.$emit('searchResult',resp.data.data.records,resp.data.data.total,_this.keywords)
         }
       })
       

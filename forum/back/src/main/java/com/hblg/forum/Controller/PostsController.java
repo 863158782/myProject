@@ -80,7 +80,7 @@ public class PostsController {
     }
 
     @GetMapping("/page")
-    public Result getPage(@RequestParam int current,int size,Long pid,String name){
+    public Result getPage(@RequestParam int current,@RequestParam int size,@RequestParam  Long pid,@RequestParam(required = false) String name){
         return  new Result(postsService.selectPage(current,size,pid,name));
     }
 }

@@ -96,11 +96,19 @@ public class PostsServiceImpl implements PostsService {
         Page<Posts> page=new Page<>(current,size);
 //        System.out.println(pid);
         QueryWrapper<Posts> queryWrapper=new QueryWrapper<>();
-        queryWrapper.lambda().like(Posts::getTitle,name).or().like(Posts::getAuthor,name);
-        if(pid==0)
-            queryWrapper=null;
+        String str=name==null?"":name;
+        if(pid!=0)
+            queryWrapper.lambda()
+                    .and(i -> i.like(Posts::getTitle,str)
+                    .or()
+                    .like(Posts::getAuthor,str)
+                    )
+                    .eq(Posts::getPid,pid);
         else
-            queryWrapper.lambda().eq(Posts::getPid,pid);
+            queryWrapper.lambda().like(Posts::getTitle,str)
+                    .or()
+                    .like(Posts::getAuthor,str);
+        System.out.println(postsMapper.selectPage(page,queryWrapper).toString());
         return postsMapper.selectPage(page,queryWrapper);
     }
 
